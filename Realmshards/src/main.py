@@ -1,8 +1,10 @@
-# File: /tower-defense-game/tower-defense-game/src/main.py
+"""
+Main module for the Realmshards Tower Defense Game.
+"""
 
-from systems.game_loop import GameLoop
-import pygame
 import sys
+import pygame
+from systems.game_loop import GameLoop
 
 
 def show_start_screen(screen):
@@ -10,7 +12,8 @@ def show_start_screen(screen):
     font = pygame.font.Font(None, 74)
     text = font.render("Realmshards", True, (255, 255, 255))
     subtext = pygame.font.Font(None, 36).render(
-        "Press any key to start", True, (200, 200, 200))
+        "Press any key to start", True, (200, 200, 200)
+    )
 
     while True:
         screen.fill((0, 0, 0))
@@ -18,21 +21,24 @@ def show_start_screen(screen):
                     2 - text.get_width() // 2, 200))
         screen.blit(subtext, (screen.get_width() //
                     2 - subtext.get_width() // 2, 300))
-        pygame.display.flip()
 
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+            if event.type == pygame.KEYDOWN:
+                print("Key pressed! Starting the game...")
+                return
+            elif event.type == pygame.QUIT:
+                print("Quit event detected. Exiting...")
                 pygame.quit()
                 sys.exit()
-            if event.type == pygame.KEYDOWN:
-                print("Key pressed! Starting the game...")  # Debugging message
-                return  # Exit the start screen when any key is pressed
+
+        pygame.display.flip()
 
 
 def main():
+    """Main function to initialize and run the game."""
     pygame.init()
     screen = pygame.display.set_mode((800, 600))
-    pygame.display.set_caption("Runeshards")
+    pygame.display.set_caption("Realmshards")
 
     # Show the start screen
     show_start_screen(screen)
@@ -41,7 +47,7 @@ def main():
     try:
         game_loop = GameLoop()
     except Exception as e:
-        print(f"Error initializing GameLoop: {e}")  # Debugging message
+        print(f"Error initializing GameLoop: {e}")
         pygame.quit()
         sys.exit()
 
@@ -58,7 +64,7 @@ def main():
             game_loop.update_game_state()
             game_loop.render_game(screen)
         except Exception as e:
-            print(f"Error during game loop: {e}")  # Debugging message
+            print(f"Error during game loop: {e}")
             running = False
 
         # Cap the frame rate
