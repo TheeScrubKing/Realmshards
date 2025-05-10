@@ -55,5 +55,5 @@ tower-defense-game
 - The game consists of multiple levels, each increasing in difficulty.
 
 ## Credits
-- Developed by [Your Name]
+- Developed by Kyle Studt
 - Inspired by classic tower defense games.
