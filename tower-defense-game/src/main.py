@@ -8,7 +8,7 @@ import sys
 def show_start_screen(screen):
     """Display the start screen."""
     font = pygame.font.Font(None, 74)
-    text = font.render("Runeshards", True, (255, 255, 255))
+    text = font.render("Realmshards", True, (255, 255, 255))
     subtext = pygame.font.Font(None, 36).render(
         "Press any key to start", True, (200, 200, 200))
 
@@ -25,6 +25,7 @@ def show_start_screen(screen):
                 pygame.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
+                print("Key pressed! Starting the game...")  # Debugging message
                 return  # Exit the start screen when any key is pressed
 
 
@@ -36,14 +37,32 @@ def main():
     # Show the start screen
     show_start_screen(screen)
 
+    # Initialize the game loop
+    try:
+        game_loop = GameLoop()
+    except Exception as e:
+        print(f"Error initializing GameLoop: {e}")  # Debugging message
+        pygame.quit()
+        sys.exit()
+
     running = True
+    clock = pygame.time.Clock()
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-        screen.fill((0, 0, 0))
-        pygame.display.flip()
+        # Update and render the game
+        try:
+            game_loop.update_game_state()
+            game_loop.render_game(screen)
+        except Exception as e:
+            print(f"Error during game loop: {e}")  # Debugging message
+            running = False
+
+        # Cap the frame rate
+        clock.tick(60)
 
     pygame.quit()
     sys.exit()
