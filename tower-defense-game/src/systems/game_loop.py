@@ -21,6 +21,15 @@ def main():
 
     pygame.quit()
 
+# File: /tower-defense-game/tower-defense-game/src/systems/game_loop.py
+
+class GameLoop:
+    def __init__(self):
+        print("GameLoop initialized")
+
+    def run(self):
+        print("Game is running")
+
 def update_game_state():
     # Update towers, enemies, and other game elements
     pass
